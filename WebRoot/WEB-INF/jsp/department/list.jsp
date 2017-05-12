@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </thead>
 
 		<!--显示数据列表-->
-        <tbody id="TableData" class="dataContainer" datakey="departmentList">
+        <tbody id="TableData" class="dataContainer"  datakey="departmentList">
         	<s:iterator>
 				<tr class="TableDetail1 template">
 					<td><s:property value="dname"/>&nbsp;</td>
@@ -45,15 +45,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</td>
 				</tr>
 			</s:iterator>
+			 <s:debug></s:debug>
         </tbody>
     </table>
     
     <!-- 其他功能超链接 -->
     <div id="TableTail">
         <div id="TableTail_inside">
+        
             <a href="departmentAction_addUI.action"><img src="${pageContext.request.contextPath}/css/images/createNew.png" /></a>
         </div>
-    </div>
+       
+   </div>
 </div>
 </body>
 </html>

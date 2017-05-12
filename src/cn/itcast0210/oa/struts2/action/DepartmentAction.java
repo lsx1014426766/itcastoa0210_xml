@@ -19,6 +19,7 @@ import com.opensymphony.xwork2.util.ValueStack;
 
 public class DepartmentAction extends BaseAction implements ModelDriven<Department>{
 	
+	//数据模型
 	private Department model = new Department();
 	
 	
@@ -27,7 +28,7 @@ public class DepartmentAction extends BaseAction implements ModelDriven<Departme
 		// TODO Auto-generated method stub
 		return this.model;
 	}
-	
+	//非注解方式，在xml里定义的bean，这里必须有属性的get set方法
 	private DepartmentService departmentService;
 
 	public DepartmentService getDepartmentService() {
@@ -38,7 +39,7 @@ public class DepartmentAction extends BaseAction implements ModelDriven<Departme
 		this.departmentService = departmentService;
 	}
 	
-	public String getAllDepartment(){
+	public String findAllDepartment(){
 		List<Department> departmentList = this.departmentService.getAllDepartment();
 		
 		/**

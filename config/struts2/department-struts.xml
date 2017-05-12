@@ -16,7 +16,7 @@
 				WEB-INF/jsp/department/updateUI.jsp
 			</result>
 			<result name="action2action" type="redirectAction">
-				departmentAction_getAllDepartment.action
+				departmentAction_findAllDepartment.action
 			</result>
 		</action>
 	</package>

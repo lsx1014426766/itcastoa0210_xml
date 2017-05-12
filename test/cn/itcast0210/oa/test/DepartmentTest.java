@@ -83,14 +83,21 @@ public class DepartmentTest {
 		 * 这个对象将变成持久化状态的对象，并且这个对象将进入到session的一级缓存中
 		 */
 		session.save(department);
+//org.hibernate.NonUniqueObjectException: a different object with the same identifier value was already associated with the session: [cn.itcast0210.oa.domain.Department#3]
 
-		Department department1 = new Department();
+		/*Department department1 = new Department();
 
 		department1.setDid(department.getDid());
 
 		department1.setDname("aaaa");
-
-		session.update(department1);
+*/
+		/**
+		 * Hibernate: select max(did) from department
+Hibernate: insert into department (dname, description, did) values (?, ?, ?)
+Hibernate: update department set dname=?, description=? where did=?
+		 */
+		department.setDname("lll");
+		session.update(department);
 
 		transaction.commit();
 		session.close();

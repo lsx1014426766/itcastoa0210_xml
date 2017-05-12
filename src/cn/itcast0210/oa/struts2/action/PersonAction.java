@@ -34,7 +34,10 @@ public class PersonAction extends ActionSupport{
 		ServletActionContext.getRequest().setAttribute("person", person);
 		return "index";
 	}
-	
+	/**hibernate3 延迟加载报错
+	 * org.hibernate.LazyInitializationException: could not initialize proxy - no Session
+	 * @return
+	 */
 	public String getPersonById(){
 		Person person = this.personService.getPersonByID(1L);
 		ServletActionContext.getRequest().setAttribute("person", person);
