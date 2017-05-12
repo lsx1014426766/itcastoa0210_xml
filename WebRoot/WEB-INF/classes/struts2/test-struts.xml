@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+  <package name="person" namespace="/" extends="struts-default">
+  <!-- 这里的class值对应test-applicationContext.xml的bean id
+       即实例的创建交由spring处理 -->
+  	<action name="personAction_*" class="personAction" method="{1}">
+  		<!-- 有反斜杠，转发方式跳转，路径不改变 -->
+  		<result name="index">/index.jsp</result>
+  	</action>
+  </package>
+</struts>	

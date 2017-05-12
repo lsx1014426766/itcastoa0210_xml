@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+<session-factory>
+	<property name="hibernate.connection.url">
+		jdbc:mysql://localhost:3306/itcastoa0210
+	</property>
+	<property name="hibernate.connection.driver_class">
+		com.mysql.jdbc.Driver
+	</property>
+	<property name="hibernate.connection.username">root</property>
+	<property name="hibernate.connection.password">root</property>
+
+
+	<!-- 配置session的线程本地化 threadLocal -->
+	<property name="current_session_context_class">thread</property>
+
+	<property name="hibernate.dialect">
+		org.hibernate.dialect.MySQLInnoDBDialect
+	</property>
+	<!-- 
+		值有几种情况：
+		validate:
+		当hibernate加载数据库时，会检验数据库的结构
+		update:
+		当hibernate加载数据库时，如果数据库存在，则进行更新，如果不存在则创建
+		create:
+		当hibernate加载数据库时,每次加载都会创建数据库
+		create-drop:
+		当hibernate加载数据库时,创建，退出时删除
+	-->
+	<property name="hibernate.hbm2ddl.auto">update</property>
+
+
+	<property name="hibernate.show_sql">true</property>
+	<mapping resource="cn/itcast0210/oa/domain/Person.hbm.xml" />
+	<mapping resource="cn/itcast0210/oa/domain/Department.hbm.xml" />
+	<mapping resource="cn/itcast0210/oa/domain/Post.hbm.xml" />
+	<mapping resource="cn/itcast0210/oa/domain/User.hbm.xml" />
+
+</session-factory>
+</hibernate-configuration>

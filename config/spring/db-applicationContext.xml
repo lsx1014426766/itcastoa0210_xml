@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/aop 
+                           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                           http://www.springframework.org/schema/tx 
+                           http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<!-- 
+		spring声明式事务处理
+			* 事务处理
+			    由spring容器完成
+			* 数据的操作
+			    程序员完成
+	 -->
+	 
+	 	<!-- 
+	 		spring要做的部分
+	 	 -->
+	 	 
+	 	 <!-- 
+	 	 	事务管理器
+	 	 		在spring容器中，最终事务管理器的类要注入给AbstractPlatformTransactionManager
+	 	  -->
+	 	  <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	 	  		<property name="sessionFactory">
+	 	  			<ref bean="sessionFactory"/>
+	 	  		</property>
+	 	  </bean>
+	 	 <!-- 
+	 	 	声明一个通知
+	 	 		transaction-manager:
+	 	 			事务管理器
+	 	  -->
+	 	 <tx:advice id="tx" transaction-manager="transactionManager">
+	 	 	<tx:attributes>
+	 	 		<!-- 
+	 	 			name属性：
+		 	 			save*:以save开头的方法
+		 	 			update*:以update开头的方法
+		 	 			delete*:以delete开头的方法
+		 	 			*:除了上述三种情况以外的所有的情况
+	 	 			
+	 	 			propagation：事务的传播属性	
+	 	 				保证所有的调用方法都在一个事务下运行
+	 	 			read-only：数据的只读属性
+	 	 		 -->
+	 	 		<tx:method name="save*" isolation="DEFAULT" propagation="REQUIRED" read-only="false"/>
+	 	 		<tx:method name="update*" isolation="DEFAULT" propagation="REQUIRED" read-only="false"/>
+	 	 		<tx:method name="delete*" isolation="DEFAULT" propagation="REQUIRED" read-only="false"/>
+	 	 		<tx:method name="*" isolation="DEFAULT" propagation="REQUIRED" read-only="true"/>
+	 	 	</tx:attributes>
+	 	 </tx:advice>
+	 	 	
+	 	 <!-- 
+	 	 	aop的配置
+	 	 	1pointcut 作用目标
+	 	 	2advice   作用行为
+	 	 	Advisor：充当Advice和Pointcut的适配器
+	 	  -->
+	 	<aop:config>
+	 		<aop:pointcut expression="execution(* cn.itcast0210.oa.service.impl.*.*(..))" id="oaPerform"/>
+	 		<aop:advisor advice-ref="tx" pointcut-ref="oaPerform"/>
+	 	</aop:config> 
+	 	 
+	 	 
+	 	 
+	 	 <!-- 
+	 	 	程序员要做的部分
+	 	  -->
+	 	  
+	 	  <!-- 
+	 	  		sessionFactory有两种配置：
+	 	  			一：
+	 	  				<bean id="mySessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+						    <property name="dataSource" ref="myDataSource"/>
+						    <property name="mappingResources">
+						      <list>
+						        <value>*.hbm.xml</value>
+						      </list>
+						    </property>
+						    <property name="hibernateProperties">
+						      <value>
+						        hibernate.dialect=org.hibernate.dialect.HSQLDialect
+						      </value>
+						    </property>
+						 </bean>
+	 	  			二：
+	 	  				引入hibernate的配置文件	
+	 	   -->
+	 	  
+	 	 <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	 	 	<!-- 
+	 	 	 	configLocation:加载spring的配置文件
+	 	 	 -->
+	 	 	<property name="configLocation">
+	 	 		<value>classpath:hibernate/hibernate.cfg.xml</value>
+	 	 	</property>
+	 	 </bean>
+	 	 
+	 	 <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+	 	 	<property name="sessionFactory">
+	 	 		<ref bean="sessionFactory"/>
+	 	 	</property>
+	 	 </bean>
+</beans>

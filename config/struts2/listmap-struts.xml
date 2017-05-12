@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+  <package name="listmap" extends="struts-default" namespace="/">
+  	<action name="listMapAction_*" method="{1}" class="cn.itcast0210.oa.struts2.action.base.ListMapAction">
+  		<result name="emMap">testListMap.jsp</result>
+  		<result name="emList">testListMap.jsp</result>
+  	</action>
+  </package>
+</struts>	
